@@ -19,6 +19,7 @@ from .views import *
 
 urlpatterns = [
     path("quiz-list-create", QuizListView.as_view()),
-    path("quiz-detail/<int:pk>", QuizView.as_view())
-
+    path("quiz-detail/<int:pk>", QuizView.as_view()),
+    path("delete-quiz", HideQuizView.as_view()),
+    path("add-answer", AddAnswerOptionToQuiz.as_view()),
 ]
