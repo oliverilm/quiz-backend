@@ -22,6 +22,8 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+.pyc
+.cpython-38.pyc
 
 
 ### Python ###

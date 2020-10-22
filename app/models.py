@@ -17,7 +17,6 @@ class Quiz(models.Model):
         verbose_name_plural = 'Quizes'
 
 class Question(models.Model):
-
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     question_value = models.TextField()
 
@@ -38,7 +37,7 @@ class AnswerOption(models.Model):
     correct = models.BooleanField()
 
     def __str__(self):
-        return self.value + " - " + self.correct
+        return self.value + " - " + str(self.correct)
 
     class Meta:
         db_table = ''

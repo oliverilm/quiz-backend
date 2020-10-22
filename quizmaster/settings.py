@@ -25,7 +25,7 @@ SECRET_KEY = '_%-y#f*^0b2jhhm@%ykuym!l40g3-%af=x=4mbwl+1$iwoz3d5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'app',
     'rest_framework',
     'corsheaders',
+    'jazzmin',
+
 
 
 ]
