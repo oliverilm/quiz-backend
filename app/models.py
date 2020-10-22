@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Quiz(models.Model):
 
     name = models.CharField(max_length=255)
@@ -16,12 +17,13 @@ class Quiz(models.Model):
         verbose_name = 'Quiz'
         verbose_name_plural = 'Quizes'
 
+
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     question_value = models.TextField()
 
     def __str__(self):
-        return self.quiz.name + " - " + self.question_value 
+        return self.quiz.name + " - " + self.question_value
 
     class Meta:
         db_table = ''
@@ -59,3 +61,27 @@ class QuestionAnswered(models.Model):
         managed = True
         verbose_name = 'QuestionAnswered'
         verbose_name_plural = 'QuestionAnswereds'
+
+
+class QuizSession(models.Model):
+
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    datetime = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "QuizSession"
+        verbose_name_plural = "QuizSessions"
+
+    def __str__(self):
+        return self.datetime
+
+
+class QuestionAnswerInSession(models.Model):
+
+    session = models.ForeignKey(QuizSession, on_delete=models.CASCADE)
+    question_answered = models.ForeignKey(
+        QuestionAnswered, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "QuestionAnswerInSession"
+        verbose_name_plural = "QuestionAnswerInSessions"

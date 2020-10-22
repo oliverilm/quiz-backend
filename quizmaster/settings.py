@@ -40,10 +40,6 @@ INSTALLED_APPS = [
     'app',
     'rest_framework',
     'corsheaders',
-    'jazzmin',
-
-
-
 ]
 
 CORS_ALLOWED_ORIGINS = [
