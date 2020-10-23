@@ -79,8 +79,8 @@ class QuizSession(models.Model):
 class QuestionAnswerInSession(models.Model):
 
     session = models.ForeignKey(QuizSession, on_delete=models.CASCADE)
-    question_answered = models.ForeignKey(
-        QuestionAnswered, on_delete=models.CASCADE)
+    answer = models.ForeignKey(
+        AnswerOption, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "QuestionAnswerInSession"

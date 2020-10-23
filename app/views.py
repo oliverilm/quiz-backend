@@ -78,6 +78,18 @@ class AddStat(APIView):
 
     def post(self, request, *args, **kwargs):
         print("request.data", request.data)
+        data = request.data.get("quizId")
+        quiz = Quiz.objects.get(pk=data.get("quizId"))
+        session = QuizSession(
+            quiz=quiz
+        )
+
+        session.save()
+        qArr = []
+        for qa in data.get("falseGuess"):
+            questionsAnswered = QuestionAnswered(
+                question
+            )
 
         return Response({"status": "OK"})
 
