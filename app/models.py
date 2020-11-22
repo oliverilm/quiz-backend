@@ -73,7 +73,7 @@ class QuizSession(models.Model):
         verbose_name_plural = "QuizSessions"
 
     def __str__(self):
-        return self.datetime
+        return str(self.datetime)
 
 
 class QuestionAnswerInSession(models.Model):

@@ -67,7 +67,7 @@ class AddAnswerOptionToQuiz(APIView):
                     correct=answer.get("correct")
                 ).save()
 
-            return Response({"status": "OK"})
+            return Response({"status": "OK", "quiz": QuizSerializer(quizObj).data})
         except Exception as e:
             return Response({"status": "error", "error": str(e)})
         pass
@@ -79,19 +79,36 @@ class AddStat(APIView):
     def post(self, request, *args, **kwargs):
         print("request.data", request.data)
         data = request.data.get("quizId")
-        quiz = Quiz.objects.get(pk=data.get("quizId"))
+        quiz = Quiz.objects.get(pk=data)
         session = QuizSession(
             quiz=quiz
         )
+        session.save()
 
         session.save()
         qArr = []
-        for qa in data.get("falseGuess"):
-            questionsAnswered = QuestionAnswered(
-                question
+        for qa in request.data.get("answers"):
+            print(qa)
+            questionsAnswered = QuestionAnswerInSession(
+                session=session,
+                answer=AnswerOption.objects.get(pk=qa["id"])
             )
-
-        return Response({"status": "OK"})
+            questionsAnswered.save()
+        print("SESSION SERIALIZED", SessionSerializer(session).data)
+        return Response({"status": "OK", "session": SessionSerializer(session).data})
 
     def get(self, request, *args, **kwargs):
         return Response({"status", "ok"})
+
+class GetStats(generics.ListAPIView):
+    queryset = QuizSession.objects.all()
+    serializer_class = SessionSerializer
+    
+
+class GetStatsForQuiz(generics.ListAPIView):
+    queryset = QuizSession.objects.all()
+    serializer_class = SessionSerializer
+    lookup_field = "pk"
+
+    def get_queryset(self):
+        return QuizSession.objects.filter(pk=self.kwargs.get("pk"))

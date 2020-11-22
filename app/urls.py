@@ -23,4 +23,6 @@ urlpatterns = [
     path("delete-quiz", HideQuizView.as_view()),
     path("add-answer", AddAnswerOptionToQuiz.as_view()),
     path("add-stat", AddStat.as_view()),
+    path("get-stats", GetStats.as_view()),
+    path("get-stats/<int:pk>", GetStatsForQuiz.as_view()),
 ]
