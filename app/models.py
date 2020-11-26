@@ -7,6 +7,7 @@ class Quiz(models.Model):
 
     name = models.CharField(max_length=255)
     show = models.BooleanField(default=True, blank=True, null=True)
+    color = models.CharField(max_length=10)
 
     def __str__(self):
         return self.name

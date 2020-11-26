@@ -9,12 +9,10 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import *
 from .serializers import *
 
-# Create your views here.
-
 
 class QuizListView(generics.ListCreateAPIView):
     permission_classes = [AllowAny]
-    queryset = Quiz.objects.filter(show=True)
+    queryset = Quiz.objects.filter(show=True).order_by("-pk")
     serializer_class = QuizListSerializer
 
 
@@ -77,7 +75,6 @@ class AddStat(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
-        print("request.data", request.data)
         data = request.data.get("quizId")
         quiz = Quiz.objects.get(pk=data)
         session = QuizSession(
@@ -88,22 +85,21 @@ class AddStat(APIView):
         session.save()
         qArr = []
         for qa in request.data.get("answers"):
-            print(qa)
             questionsAnswered = QuestionAnswerInSession(
                 session=session,
                 answer=AnswerOption.objects.get(pk=qa["id"])
             )
             questionsAnswered.save()
-        print("SESSION SERIALIZED", SessionSerializer(session).data)
         return Response({"status": "OK", "session": SessionSerializer(session).data})
 
     def get(self, request, *args, **kwargs):
         return Response({"status", "ok"})
 
+
 class GetStats(generics.ListAPIView):
     queryset = QuizSession.objects.all()
     serializer_class = SessionSerializer
-    
+
 
 class GetStatsForQuiz(generics.ListAPIView):
     queryset = QuizSession.objects.all()
