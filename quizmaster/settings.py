@@ -40,7 +40,21 @@ INSTALLED_APPS = [
     'app',
     'rest_framework',
     'corsheaders',
+    # django rest framework
+    'rest_framework.authtoken',
+    'rest_auth',
+    # for social login
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 ]
+
+SITE_ID = 1
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000"

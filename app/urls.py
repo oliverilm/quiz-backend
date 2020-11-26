@@ -24,5 +24,7 @@ urlpatterns = [
     path("add-answer", AddAnswerOptionToQuiz.as_view()),
     path("add-stat", AddStat.as_view()),
     path("get-stats", GetStats.as_view()),
+    path('rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
+    path('rest-auth/google/', GoogleLogin.as_view(), name='google_login'),
     path("get-stats/<int:pk>", GetStatsForQuiz.as_view()),
 ]
